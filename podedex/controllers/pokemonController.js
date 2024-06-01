@@ -30,3 +30,13 @@ exports.createPokemon = async (req, res) => {
         res.status(500).send({ error: "Erreur lors de la création du pokémon" });
     }
 };
+
+exports.loadPokemonData = async (req, res) => {
+    try {
+        await pokemonService.loadPokemonData();
+        res.send({ message: 'Les données des pokemons et des pokedex ont bien été chargée.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Une erreur est survenue lors du chargement des données des pokemons' });
+    }
+};

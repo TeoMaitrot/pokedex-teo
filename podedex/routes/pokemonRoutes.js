@@ -7,5 +7,6 @@ const router = express.Router();
 router.get('/', pokemonController.getAllPokemons);
 router.get('/:id', pokemonController.getPokemonById);
 router.post('/', pokemonController.createPokemon);
+router.post('/loadPokemonData', pokemonController.loadPokemonData);
 
 module.exports = router;
