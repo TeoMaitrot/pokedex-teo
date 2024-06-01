@@ -9,8 +9,7 @@ const utilisateurSchema = new mongoose.Schema({
     // Equipe de l'utilisateur
     equipe: [{
         type: Number,
-        ref: 'Pokemon',
-        validate: [val => val.length <= 6, '{PATH} exceeds the limit of 6']
+        ref: 'Pokemon'
     }]
 }, { timestamps: true });
 
