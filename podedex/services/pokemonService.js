@@ -25,9 +25,6 @@ exports.loadPokemonData = async () => {
         // Suppression de tous les Pokémon existants
         await Pokemon.deleteMany({});
 
-        // Suppression de tous les Pokémon des Pokédex
-        await Pokedex.updateMany({}, { $set: { pokemons: [] } });
-
         // Création des nouveaux Pokémon
         const pokemonPromises = pokemons.map(pokemonData => {
             const id = pokemonData.url.split('/').filter(Boolean).pop();
@@ -45,14 +42,26 @@ exports.loadPokemonData = async () => {
             };
         });
 
-        const pokedexPromises = pokedexes.map(pokedex => {
-            pokedex.pokemons = pokemonIds;
+        // Mettre à jour chaque pokedex en conservant l'état de capture des pokémons
+        const pokedexPromises = pokedexes.map(async pokedex => {
+            const existingPokemons = pokedex.pokemons.reduce((acc, entry) => {
+                acc[entry.pokemon] = entry.captured;
+                return acc;
+            }, {});
+
+            const updatedPokemons = pokemonIds.map(entry => ({
+                pokemon: entry.pokemon,
+                captured: existingPokemons[entry.pokemon] || false
+            }));
+
+            pokedex.pokemons = updatedPokemons;
             return pokedex.save();
         });
+
         await Promise.all(pokedexPromises);
 
-        console.log('Pokémon data loaded and Pokédexes updated successfully.');
+        console.log('Les données des pokemons et des pokedex ont bien été mises à jour');
     } catch (error) {
-        console.error('Error loading Pokémon data:', error);
+        console.error('Erreur lors du chargement des données des pokemons et des pokedexs:', error);
     }
 };
