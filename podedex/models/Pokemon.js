@@ -13,7 +13,7 @@ const schema = mongoose.Schema({
         type: String,
         required: true
     }
-});
+}, { timestamps: true });
 
 // Création et exportation du modèle Pokemon basé sur le schéma
 module.exports = mongoose.model("Pokemon", schema);
