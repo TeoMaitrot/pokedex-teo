@@ -1,4 +1,6 @@
 // Controller des pokedexs
+const { validationResult } = require('express-validator');
+
 const pokedexService = require('../services/pokedexService');
 
 exports.getAllPokedexes = async (req, res) => {
@@ -23,10 +25,17 @@ exports.getPokedexById = async (req, res) => {
 };
 
 exports.createPokedex = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-        const pokedex = await pokedexService.createPokedex(req.params.utilisateurId, req.body);
+        const { nom } = req.body;
+        const pokedex = await pokedexService.createPokedex(req.params.utilisateurId, { nom });
         res.send(pokedex);
     } catch (error) {
+        console.error(error);
         res.status(500).send({ error: "Erreur lors de la création du pokédex" });
     }
 };
@@ -45,15 +54,20 @@ exports.addPokemonToPokedex = async (req, res) => {
         const pokedex = await pokedexService.addPokemonToPokedex(req.params.utilisateurId, req.params.pokedexId, req.body.pokemonId);
         res.send(pokedex);
     } catch (error) {
+        console.error(error);
         res.status(500).send({ error: "Erreur lors de l'ajout du Pokémon dans le pokédex" });
     }
 };
 
 exports.togglePokemonCapture = async (req, res) => {
     try {
-        const pokedex = await pokedexService.togglePokemonCapture(req.params.utilisateurId, req.params.pokedexId, req.params.pokemonId);
-        res.send(pokedex);
+        const { utilisateurId, pokedexId, pokemonId } = req.params;
+        const numericPokemonId = Number(pokemonId); 
+        const updatedPokedex = await pokedexService.togglePokemonCapture(utilisateurId, pokedexId, numericPokemonId);
+        res.send(updatedPokedex);
     } catch (error) {
-        res.status(500).send({ error: "Erreur lors de la mise à jour de l'état de capture du Pokémon" });
+        console.error(error);
+        res.status(500).send({ error: "Erreur lors de la mise à jour de l'état de capture du Pokemon" });
     }
 };
+

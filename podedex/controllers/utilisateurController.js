@@ -1,4 +1,6 @@
 // Controller des utilisateurs
+const { check, validationResult } = require('express-validator');
+
 const utilisateurService = require('../services/utilisateurService');
 
 exports.getAllUtilisateurs = async (req, res) => {
@@ -32,10 +34,21 @@ exports.createUtilisateur = async (req, res) => {
 };
 
 exports.addPokemonToEquipe = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-        const utilisateur = await utilisateurService.addPokemonToEquipe(req.params.utilisateurId, req.body.pokemonId);
+        const utilisateurId = req.params.utilisateurId;
+        const pokedexId = req.params.pokedexId;
+        const { pokemonId } = req.body;
+
+        const utilisateur = await utilisateurService.addPokemonToEquipe(utilisateurId, pokedexId, pokemonId);
         res.send(utilisateur);
     } catch (error) {
+        console.error(error);
         res.status(500).send({ error: "Erreur lors de l'ajout du Pokémon à l'équipe" });
     }
 };
+
