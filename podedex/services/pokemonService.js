@@ -18,50 +18,51 @@ exports.createPokemon = async (pokemonData) => {
 
 exports.loadPokemonData = async () => {
     try {
-        // Récupération des données depuis l'API
-        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=1302');
-        const pokemons = response.data.results;
+        const response = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=10');
+        const pokemonList = response.data.results;
 
-        // Suppression de tous les Pokémon existants
-        await Pokemon.deleteMany({});
+        for (const pokemon of pokemonList) {
+            const pokemonDetails = await axios.get(pokemon.url);
+            const { id, name, sprites } = pokemonDetails.data;
 
-        // Création des nouveaux Pokémon
-        const pokemonPromises = pokemons.map(pokemonData => {
-            const id = pokemonData.url.split('/').filter(Boolean).pop();
-            const pokemon = new Pokemon({ id, nom: pokemonData.name });
-            return pokemon.save();
-        });
-        await Promise.all(pokemonPromises);
+            // Créer ou mettre à jour le Pokémon dans la base de données
+            await Pokemon.findOneAndUpdate(
+                { id },
+                { nom: name, spriteUrl: sprites.front_default },
+                { upsert: true, new: true }
+            );
+        }
 
-        // Mise à jour des Pokédex
+        // Charger tous les Pokédex et mettre à jour les Pokémons
         const pokedexes = await Pokedex.find();
-        const pokemonIds = pokemons.map(pokemonData => {
-            return {
-                pokemon: parseInt(pokemonData.url.split('/').filter(Boolean).pop()),
-                captured: false
-            };
-        });
 
-        // Mettre à jour chaque pokedex en conservant l'état de capture des pokémons
-        const pokedexPromises = pokedexes.map(async pokedex => {
-            const existingPokemons = pokedex.pokemons.reduce((acc, entry) => {
-                acc[entry.pokemon] = entry.captured;
+        for (const pokedex of pokedexes) {
+            // Conserver les états de capture existants
+            const existingPokemons = pokedex.pokemons.reduce((acc, { pokemon, captured }) => {
+                acc[pokemon] = captured;
                 return acc;
             }, {});
 
-            const updatedPokemons = pokemonIds.map(entry => ({
-                pokemon: entry.pokemon,
-                captured: existingPokemons[entry.pokemon] || false
-            }));
+            // Supprimer les Pokémons actuels
+            pokedex.pokemons = [];
 
-            pokedex.pokemons = updatedPokemons;
-            return pokedex.save();
-        });
+            // Recharger les Pokémons avec les nouvelles données
+            for (const pokemon of pokemonList) {
+                const pokemonDetails = await axios.get(pokemon.url);
+                const { id, sprites } = pokemonDetails.data;
 
-        await Promise.all(pokedexPromises);
+                pokedex.pokemons.push({
+                    pokemon: id,
+                    captured: existingPokemons[id] || false,
+                    spriteUrl: sprites.front_default
+                });
+            }
 
-        console.log('Les données des pokemons et des pokedex ont bien été mises à jour');
+            await pokedex.save();
+        }
+
+        console.log('Données Pokémon chargées avec succès');
     } catch (error) {
-        console.error('Erreur lors du chargement des données des pokemons et des pokedexs:', error);
+        console.error('Erreur lors du chargement des données Pokémon', error);
     }
 };

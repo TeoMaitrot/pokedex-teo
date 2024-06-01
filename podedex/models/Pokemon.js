@@ -12,6 +12,11 @@ const schema = mongoose.Schema({
     nom: {
         type: String,
         required: true
+    },
+    // URL de l'image front_default
+    spriteUrl: {
+        type: String,
+        required: true
     }
 }, { timestamps: true });
 

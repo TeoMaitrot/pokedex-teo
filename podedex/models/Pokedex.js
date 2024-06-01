@@ -9,7 +9,8 @@ const pokedexSchema = new mongoose.Schema({
     // Dictionnaire de pokemon avec un flag pour savoir si le pokemon a été capturé ou non
     pokemons: [{
         pokemon: { type: Number, ref: "Pokemon" },
-        captured: { type: Boolean, default: false }
+        captured: { type: Boolean, default: false },
+        spriteUrl: { type: String }
     }]
 }, { timestamps: true });
 
