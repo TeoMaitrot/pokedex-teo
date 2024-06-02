@@ -96,3 +96,16 @@ exports.togglePokemonCapture = async (utilisateurId, pokedexId, pokemonId) => {
     return await pokedexManager.updatePokedex(pokedex);
 };
 
+exports.getPokemonsByPokedex = async (utilisateurId, pokedexId, limit, offset) => {
+    const utilisateur = await utilisateurManager.getUtilisateurById(utilisateurId);
+    if (!utilisateur) {
+        throw new Error('Utilisateur non trouvé');
+    }
+
+    const pokedex = await pokedexManager.getPokedexById(pokedexId);
+    if (!pokedex || !pokedex.utilisateur.equals(utilisateur._id)) {
+        throw new Error('Pokédex non trouvé');
+    }
+
+    return await pokedexManager.getPokemonsByPokedex(pokedexId, limit, offset);
+};

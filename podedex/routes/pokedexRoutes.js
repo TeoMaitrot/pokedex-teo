@@ -14,5 +14,6 @@ router.post('/:utilisateurId/pokedexes', [
 router.get('/:utilisateurId/pokedexes/:pokedexId/pokemons', pokedexController.getPokemonsInPokedex);
 router.post('/:utilisateurId/pokedexes/:pokedexId/pokemons', pokedexController.addPokemonToPokedex);
 router.put('/:utilisateurId/pokedexes/:pokedexId/pokemons/:pokemonId/capture', pokedexController.togglePokemonCapture);
+router.get('/:utilisateurId/pokedexes/:pokedexId/pokemons-par-lot', pokedexController.getPokemonsByPokedex);
 
 module.exports = router;

@@ -71,3 +71,15 @@ exports.togglePokemonCapture = async (req, res) => {
     }
 };
 
+exports.getPokemonsByPokedex = async (req, res) => {
+    try {
+        const { limit = 10, offset = 0 } = req.query;
+        const pokemons = await pokedexService.getPokemonsByPokedex(req.params.utilisateurId, req.params.pokedexId, parseInt(limit), parseInt(offset));
+        res.send(pokemons);
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).send({ error: error.toString() });
+    }
+};
+
