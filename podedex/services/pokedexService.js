@@ -1,4 +1,5 @@
 // Service pour la gestion des pokedexs
+const mongoose = require('mongoose');
 const pokedexManager = require('../managers/pokedexManager');
 const utilisateurManager = require('../managers/utilisateurManager');
 const pokemonManager = require('../managers/pokemonManager');
@@ -32,7 +33,10 @@ exports.createPokedex = async (utilisateurId, pokedexData) => {
         throw new Error('Utilisateur non trouvé');
     }
 
-    const pokedex = await pokedexManager.createPokedex({ ...pokedexData, utilisateur: utilisateur._id.toString });
+    // Convertir l'ID de l'utilisateur en ObjectId
+    const utilisateurObjectId = new mongoose.Types.ObjectId(utilisateurId);
+
+    const pokedex = await pokedexManager.createPokedex({ ...pokedexData, utilisateur: utilisateurObjectId });
     utilisateur.pokedexes.push(pokedex._id);
     await utilisateurManager.updateUtilisateur(utilisateur);
 
