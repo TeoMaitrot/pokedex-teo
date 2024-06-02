@@ -7,23 +7,45 @@ const pokemonManager = require('../managers/pokemonManager');
 // Constante définissant le maximum d'appel en parralèle possible
 const MAX_PARALLEL_REQUESTS = 300;
 
+/**
+ * Méthode permettant de récupérer le détail d'un pokemon grâce à son url
+ * @param {*} url url du pokemon
+ * @returns le détail du pokemon
+ */
 async function fetchPokemonDetails(url) {
     const response = await axios.get(url);
     return response.data;
 }
 
+/**
+ * Retourne tous les pokemons
+ * @returns tous les pokemons
+ */
 exports.getAllPokemons = async () => {
     return await pokemonManager.getAllPokemons();
 };
 
+/**
+ * Retourne un pokemon
+ * @param {*} id id du pokemon
+ * @returns un pokemon
+ */
 exports.getPokemonById = async (id) => {
     return await pokemonManager.getPokemonById(id);
 };
 
+/**
+ * Permet de créer un pokemon
+ * @param {*} pokemonData données du pokemon à créer
+ * @returns le pokemon créé
+ */
 exports.createPokemon = async (pokemonData) => {
     return await pokemonManager.createPokemon(pokemonData);
 };
 
+/**
+ * Récupère les données des pokemons et des pokedex par le biai d'une api externe
+ */
 exports.loadPokemonData = async () => {
     try {
         let nextUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1000';
@@ -79,6 +101,11 @@ exports.loadPokemonData = async () => {
     }
 };
 
+/**
+ * Charge les sprites d'un lot de pokemon
+ * @param {*} startId id du début du lot
+ * @param {*} endId id de fin du lot
+ */
 exports.loadPokemonDataWithSprite = async (startId, endId) => {
     try {
         const fetchedPokemons = [];

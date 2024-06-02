@@ -2,18 +2,39 @@
 const utilisateurManager = require('../managers/utilisateurManager');
 const pokemonManager = require('../managers/pokemonManager');
 
+/**
+ * Retourne tous les utilsiateurs
+ * @returns tous les utilsiateurs 
+ */
 exports.getAllUtilisateurs = async () => {
     return await utilisateurManager.getAllUtilisateurs();
 };
 
+/**
+ * Retourne un utilisateur
+ * @param {*} id id de l'utilisateur
+ * @returns un utilisateur
+ */
 exports.getUtilisateurById = async (id) => {
     return await utilisateurManager.getUtilisateurById(id);
 };
 
+/**
+ * Permet de créer un utilisateur
+ * @param {*} utilisateurData données de l'utilisateur à créer
+ * @returns l'utilisateur créé
+ */
 exports.createUtilisateur = async (utilisateurData) => {
     return await utilisateurManager.createUtilisateur(utilisateurData);
 };
 
+/**
+ * Ajoute un pokemon à l'équipe d'un utilisateur
+ * @param {*} utilisateurId id de l'utilisateur
+ * @param {*} pokedexId id du pokedex de l'utilisateur 
+ * @param {*} pokemonId id du pokemon
+ * @returns l'utilisateur modifié
+ */
 exports.addPokemonToEquipe = async (utilisateurId, pokedexId, pokemonId) => {
     const utilisateur = await utilisateurManager.getUtilisateurById(utilisateurId);
     if (!utilisateur) {
@@ -47,6 +68,11 @@ exports.addPokemonToEquipe = async (utilisateurId, pokedexId, pokemonId) => {
     return await utilisateurManager.updateUtilisateur(utilisateur);
 };
 
+/**
+ * Récupère l'équipe d'un utilisateur
+ * @param {*} utilisateurId id de l'utilisateur
+ * @returns l'équpe de l'utilisateur
+ */
 exports.getEquipeByUtilisateurId = async (utilisateurId) => {
     const utilisateur = await utilisateurManager.getUtilisateurById(utilisateurId);
     if (!utilisateur) {
@@ -68,6 +94,12 @@ exports.getEquipeByUtilisateurId = async (utilisateurId) => {
     return equipeDetails;
 };
 
+/**
+ * Permet de retirer un pokemon de l'équipe d'un utilisateur
+ * @param {*} utilisateurId id de l'utilisateur
+ * @param {*} pokemonId id du pokemon
+ * @returns l'utilisateur modifié
+ */
 exports.removePokemonFromEquipe = async (utilisateurId, pokemonId) => {
     const utilisateur = await utilisateurManager.getUtilisateurById(utilisateurId);
     if (!utilisateur) {

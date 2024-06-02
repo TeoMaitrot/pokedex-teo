@@ -3,6 +3,11 @@ const { check, validationResult } = require('express-validator');
 
 const utilisateurService = require('../services/utilisateurService');
 
+/**
+ * Permet de récupérer tous les utilisateurs
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.getAllUtilisateurs = async (req, res) => {
     try {
         const utilisateurs = await utilisateurService.getAllUtilisateurs();
@@ -13,6 +18,12 @@ exports.getAllUtilisateurs = async (req, res) => {
     }
 };
 
+/**
+ * Permet de récupérer un utilisateur par son id
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ * @returns un utilisateur
+ */
 exports.getUtilisateurById = async (req, res) => {
     try {
         const utilisateur = await utilisateurService.getUtilisateurById(req.params.id);
@@ -25,6 +36,12 @@ exports.getUtilisateurById = async (req, res) => {
     }
 };
 
+/**
+ * Permet de créer un utilisateur
+ * @param {*} req requête HTML  
+ * @param {*} res résultat de la requête
+ * @returns un utilisateur
+ */
 exports.createUtilisateur = async (req, res) => {
     try {
         const utilisateur = await utilisateurService.createUtilisateur(req.body);
@@ -34,6 +51,12 @@ exports.createUtilisateur = async (req, res) => {
     }
 };
 
+/**
+ * Permet d'ajouter un pokemon d'un pokedex à l'équipe d'un utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ * @returns l'utilisateur modifié
+ */
 exports.addPokemonToEquipe = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -53,6 +76,11 @@ exports.addPokemonToEquipe = async (req, res) => {
     }
 };
 
+/**
+ * Permet de récupérer l'équipe d'un utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.getEquipeByUtilisateurId = async (req, res) => {
     try {
         const equipe = await utilisateurService.getEquipeByUtilisateurId(req.params.utilisateurId);
@@ -63,6 +91,11 @@ exports.getEquipeByUtilisateurId = async (req, res) => {
     }
 };
 
+/**
+ * Permet de retirer un pokemon de l'équipe de l'utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.removePokemonFromEquipe = async (req, res) => {
     try {
         const { utilisateurId, pokemonId } = req.params;

@@ -1,6 +1,11 @@
 // Controller des pokemons
 const pokemonService = require('../services/pokemonService');
 
+/**
+ * Permet de récupérer tous les pokemons
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.getAllPokemons = async (req, res) => {
     try {
         const pokemons = await pokemonService.getAllPokemons();
@@ -10,6 +15,12 @@ exports.getAllPokemons = async (req, res) => {
     }
 };
 
+/**
+ * Permet de récupérer un pokemon par son id
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ * @returns un pokedex
+ */
 exports.getPokemonById = async (req, res) => {
     try {
         const pokemon = await pokemonService.getPokemonById(req.params.id);
@@ -22,6 +33,12 @@ exports.getPokemonById = async (req, res) => {
     }
 };
 
+/**
+ * Permet de créer un pokemon
+ * @param {*} req requête HTML  
+ * @param {*} res résultat de la requête
+ * @returns un pokemon
+ */
 exports.createPokemon = async (req, res) => {
     try {
         const pokemon = await pokemonService.createPokemon(req.body);
@@ -31,6 +48,11 @@ exports.createPokemon = async (req, res) => {
     }
 };
 
+/**
+ * Permet de charger les données des pokemons et des pokedex à partir d'une API externe
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.loadPokemonData = async (req, res) => {
     try {
         await pokemonService.loadPokemonData();
@@ -41,6 +63,11 @@ exports.loadPokemonData = async (req, res) => {
     }
 };
 
+/**
+ * Permet de charger les sprites des pokemons par lot à partir par l'intermédiaire d'une API externe
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.loadPokemonDataWithSprite = async (req, res) => {
     const { startId, endId } = req.body;
     try {

@@ -3,6 +3,11 @@ const { validationResult } = require('express-validator');
 
 const pokedexService = require('../services/pokedexService');
 
+/**
+ * Permet de récupérer tous les pokedex
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.getAllPokedexes = async (req, res) => {
     try {
         const pokedexes = await pokedexService.getAllPokedexes();
@@ -12,6 +17,12 @@ exports.getAllPokedexes = async (req, res) => {
     }
 };
 
+/**
+ * Permet de récupérer un pokedex par son id
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ * @returns un pokedex
+ */
 exports.getPokedexById = async (req, res) => {
     try {
         const pokedex = await pokedexService.getPokedexById(req.params.id);
@@ -24,6 +35,12 @@ exports.getPokedexById = async (req, res) => {
     }
 };
 
+/**
+ * Permet de créer un pokedex
+ * @param {*} req requête HTML  
+ * @param {*} res résultat de la requête
+ * @returns un pokedex
+ */
 exports.createPokedex = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -40,6 +57,11 @@ exports.createPokedex = async (req, res) => {
     }
 };
 
+/**
+ * Permet de récupérer tous les pokemons d'un pokedex d'un utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.getPokemonsInPokedex = async (req, res) => {
     try {
         const pokemons = await pokedexService.getPokemonsInPokedex(req.params.utilisateurId, req.params.pokedexId);
@@ -49,6 +71,11 @@ exports.getPokemonsInPokedex = async (req, res) => {
     }
 };
 
+/**
+ * Permet d'ajouter un pokemon au pokedex d'un utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.addPokemonToPokedex = async (req, res) => {
     try {
         const pokedex = await pokedexService.addPokemonToPokedex(req.params.utilisateurId, req.params.pokedexId, req.body.pokemonId);
@@ -59,6 +86,11 @@ exports.addPokemonToPokedex = async (req, res) => {
     }
 };
 
+/**
+ * Permet de changer l'état de capture d'un pokemon
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.togglePokemonCapture = async (req, res) => {
     try {
         const { utilisateurId, pokedexId, pokemonId } = req.params;
@@ -71,6 +103,11 @@ exports.togglePokemonCapture = async (req, res) => {
     }
 };
 
+/**
+ * Permet de récupérer par lot les pokemons d'un pokedex d'un utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
 exports.getPokemonsByPokedex = async (req, res) => {
     try {
         const { limit = 10, offset = 0 } = req.query;
