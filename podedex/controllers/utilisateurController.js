@@ -73,9 +73,15 @@ exports.addPokemonToEquipe = async (req, res) => {
         res.send(utilisateur);
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: "Erreur lors de l'ajout du Pokémon à l'équipe" });
+        if (error.message) {
+            res.status(400).send({ error: error.message });
+        } else {
+            res.status(500).send({ error: "Erreur lors de l'ajout du Pokémon à l'équipe" });
+        }
     }
 };
+
+
 
 /**
  * Permet de récupérer l'équipe d'un utilisateur
@@ -104,6 +110,20 @@ exports.removePokemonFromEquipe = async (req, res) => {
         res.send(updatedUtilisateur);
     } catch (error) {
         res.status(500).send({ error: error.message });
+    }
+};
+
+/**
+ * Retourne tous les pokedexs d'un utilisateur
+ * @param {*} req requête HTML
+ * @param {*} res résultat de la requête
+ */
+exports.getPokedexesByUtilisateur = async (req, res) => {
+    try {
+        const pokedexes = await utilisateurService.getPokedexesByUtilisateur(req.params.utilisateurId);
+        res.send(pokedexes);
+    } catch (error) {
+        res.status(500).send({ error: 'Erreur lors de la récupération des Pokédexes de l\'utilisateur' });
     }
 };
 

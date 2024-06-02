@@ -20,5 +20,7 @@ router.post('/:utilisateurId/pokedexes/:pokedexId/equipe', [
 router.get('/:utilisateurId/equipe', utilisateurController.getEquipeByUtilisateurId);
 // Retirer un pokemon de l'équipe d'un utilisateur 
 router.delete('/:utilisateurId/equipe/:pokemonId', utilisateurController.removePokemonFromEquipe);
+// Récupérer tous les pokedexs d'un utilisateur 
+router.get('/:utilisateurId/pokedexes', utilisateurController.getPokedexesByUtilisateur);
 
 module.exports = router;

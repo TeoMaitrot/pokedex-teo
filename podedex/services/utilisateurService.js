@@ -115,3 +115,12 @@ exports.removePokemonFromEquipe = async (utilisateurId, pokemonId) => {
     return await utilisateurManager.updateUtilisateur(utilisateur);
 };
 
+/**
+ * Retourne tous les pokedexs d'un utilisateur
+ * @param {*} utilisateurId id de l'utilisateur
+ * @returns tous les pokedexs d'un utilisateur
+ */
+exports.getPokedexesByUtilisateur = async (utilisateurId) => {
+    return await utilisateurManager.getPokedexesByUtilisateur(utilisateurId);
+};
+

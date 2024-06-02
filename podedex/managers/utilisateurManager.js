@@ -52,3 +52,11 @@ exports.getPokedexById = async (utilisateurId, pokedexId) => {
     return pokedex;
 };
 
+exports.getPokedexesByUtilisateur = async (utilisateurId) => {
+    const utilisateur = await Utilisateur.findById(utilisateurId).populate('pokedexes');
+    if (!utilisateur) {
+        throw new Error('Utilisateur non trouvé');
+    }
+    return utilisateur.pokedexes;
+};
+

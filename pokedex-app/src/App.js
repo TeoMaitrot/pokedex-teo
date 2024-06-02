@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import CreateUserForm from './components/CreateUserForm';
 import CreatePokedexForm from './components/CreatePokedexForm';
 import LoadDataPage from './components/LoadDataPage';
+import SelectPokemonPage from './components/SelectPokemonPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/create-user" element={<CreateUserForm />} />
           <Route path="/create-pokedex" element={<CreatePokedexForm />} />
           <Route path="/load-data" element={<LoadDataPage />} />
+          <Route path="/select-pokemon" element={<SelectPokemonPage />} />
         </Routes>
       </div>
     </Router>
