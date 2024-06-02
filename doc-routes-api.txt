@@ -1,0 +1,57 @@
+### Routes de l'API
+
+#### Routes des Pokémon
+
+- `GET /api/pokemons`
+  - Description : Récupérer tous les Pokémon
+
+- `GET /api/pokemons/:id`
+  - Description : Récupérer un Pokémon par son ID
+
+- `POST /api/pokemons`
+  - Description : Créer un nouveau Pokémon
+
+- `PUT /api/pokemons/load`
+  - Description : Charger les données des Pokémon depuis l'API externe
+
+- `PUT /api/pokemons/load-sprites`
+  - Description : Charger les données des sprites des Pokémon depuis l'API externe
+
+
+#### Routes des Utilisateurs
+
+- `GET /api/utilisateurs`
+  - Description : Récupérer tous les utilisateurs
+
+- `GET /api/utilisateurs/:id`
+  - Description : Récupérer un utilisateur par son ID
+
+- `POST /api/utilisateurs`
+  - Description : Créer un nouvel utilisateur
+
+- `POST /api/utilisateurs/:utilisateurId/equipe`
+  - Description : Ajouter un Pokémon à l'équipe d'un utilisateur
+
+- `GET /api/utilisateurs/:utilisateurId/equipe`
+  - Description : Récupérer tous les Pokémon de l'équipe d'un utilisateur
+
+- `DELETE /api/utilisateurs/:utilisateurId/equipe/:pokemonId`
+  - Description : Retirer un Pokémon de l'équipe d'un utilisateur
+
+
+#### Routes des Pokédex
+
+- `GET /api/pokedexes`
+  - Description : Récupérer tous les Pokédex
+
+- `GET /api/pokedexes/:id`
+  - Description : Récupérer un Pokédex par son ID
+
+- `POST /api/utilisateurs/:utilisateurId/pokedexes`
+  - Description : Créer un Pokédex pour un utilisateur
+
+- `GET /api/utilisateurs/:utilisateurId/pokedexes/:pokedexId/pokemons`
+  - Description : Récupérer les Pokémon d'un Pokédex d'un utilisateur par lot
+
+- `PUT /api/utilisateurs/:utilisateurId/pokedexes/:pokedexId/pokemons/:pokemonId/capture`
+  - Description : Modifier l'état de capture d'un Pokémon dans un Pokédex d'un utilisateur
