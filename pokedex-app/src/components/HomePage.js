@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
     return (
@@ -7,6 +8,9 @@ const HomePage = () => {
             <p style={styles.description}>
                 Cette application permet de visualier et le pokdex et les équipes de différents utilisateurs.
             </p>
+            <Link to="/create-user">
+                <button style={styles.button}>Créer un utilisateur</button>
+            </Link>
         </div>
     );
 };
@@ -31,6 +35,15 @@ const styles = {
         textAlign: 'center',
         maxWidth: '600px',
     },
+    button: {
+      padding: '10px 20px',
+      fontSize: '16px',
+      cursor: 'pointer',
+      backgroundColor: '#4CAF50',
+      color: 'white',
+      border: 'none',
+      borderRadius: '5px',
+    }
 };
 
 export default HomePage;

@@ -47,6 +47,7 @@ exports.createUtilisateur = async (req, res) => {
         const utilisateur = await utilisateurService.createUtilisateur(req.body);
         res.send(utilisateur);
     } catch (error) {
+        console.error(error);
         res.status(500).send({ error: "Erreur lors de la création de l'utilisateur" });
     }
 };

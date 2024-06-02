@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const pokemonRoutes = require('./routes/pokemonRoutes');
 const utilisateurRoutes = require('./routes/utilisateurRoutes');
 const pokedexRoutes = require('./routes/pokedexRoutes');
@@ -23,6 +24,7 @@ async function connectToDatabase() {
 // Appel de la fonction pour se connecter à la base de données
 connectToDatabase();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 // Utiliser les routes sous le préfixe /api
