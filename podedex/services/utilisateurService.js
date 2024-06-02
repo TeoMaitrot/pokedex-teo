@@ -1,5 +1,6 @@
 // Service pour la gestion des utilisateurs
 const utilisateurManager = require('../managers/utilisateurManager');
+const pokemonManager = require('../managers/pokemonManager');
 
 exports.getAllUtilisateurs = async () => {
     return await utilisateurManager.getAllUtilisateurs();
@@ -43,6 +44,42 @@ exports.addPokemonToEquipe = async (utilisateurId, pokedexId, pokemonId) => {
     }
 
     utilisateur.equipe.push(pokemonId);
+    return await utilisateurManager.updateUtilisateur(utilisateur);
+};
+
+exports.getEquipeByUtilisateurId = async (utilisateurId) => {
+    const utilisateur = await utilisateurManager.getUtilisateurById(utilisateurId);
+    if (!utilisateur) {
+        throw new Error('Utilisateur non trouvé');
+    }
+
+    const equipeDetails = await Promise.all(
+        utilisateur.equipe.map(async (pokemonId) => {
+            const pokemon = await pokemonManager.getPokemonById(pokemonId);
+            return {
+                id: pokemon.id,
+                nom: pokemon.nom,
+                spriteUrl: pokemon.spriteUrl,
+                captured: true, // Par définition, un Pokémon dans l'équipe est capturé
+            };
+        })
+    );
+
+    return equipeDetails;
+};
+
+exports.removePokemonFromEquipe = async (utilisateurId, pokemonId) => {
+    const utilisateur = await utilisateurManager.getUtilisateurById(utilisateurId);
+    if (!utilisateur) {
+        throw new Error('Utilisateur non trouvé');
+    }
+
+    const pokemonIndex = utilisateur.equipe.indexOf(pokemonId);
+    if (pokemonIndex === -1) {
+        throw new Error('Le Pokémon n\'est pas dans l\'équipe');
+    }
+
+    utilisateur.equipe.splice(pokemonIndex, 1);
     return await utilisateurManager.updateUtilisateur(utilisateur);
 };
 

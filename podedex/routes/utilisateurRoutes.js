@@ -13,5 +13,7 @@ router.post('/', [
 router.post('/:utilisateurId/pokedexes/:pokedexId/equipe', [
     check('pokemonId').isNumeric().withMessage('L\'ID du Pokémon doit être un nombre.')
 ], utilisateurController.addPokemonToEquipe);
+router.get('/:utilisateurId/equipe', utilisateurController.getEquipeByUtilisateurId);
+router.delete('/:utilisateurId/equipe/:pokemonId', utilisateurController.removePokemonFromEquipe);
 
 module.exports = router;

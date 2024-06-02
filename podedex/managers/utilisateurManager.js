@@ -3,7 +3,7 @@ const Utilisateur = require('../models/Utilisateur');
 const Pokedex = require('../models/Pokedex');
 
 exports.getAllUtilisateurs = async () => {
-    return await Utilisateur.find().populate('pokedexes').populate('equipe');
+    return await Utilisateur.find();
 };
 
 exports.getUtilisateurById = async (id) => {

@@ -8,6 +8,7 @@ exports.getAllUtilisateurs = async (req, res) => {
         const utilisateurs = await utilisateurService.getAllUtilisateurs();
         res.send(utilisateurs);
     } catch (error) {
+        console.log(error);
         res.status(500).send({ error: "Erreur lors de la récupération des utilisateurs" });
     }
 };
@@ -49,6 +50,26 @@ exports.addPokemonToEquipe = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: "Erreur lors de l'ajout du Pokémon à l'équipe" });
+    }
+};
+
+exports.getEquipeByUtilisateurId = async (req, res) => {
+    try {
+        const equipe = await utilisateurService.getEquipeByUtilisateurId(req.params.utilisateurId);
+        res.send(equipe);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error: "Erreur lors de la récupération de l'équipe" });
+    }
+};
+
+exports.removePokemonFromEquipe = async (req, res) => {
+    try {
+        const { utilisateurId, pokemonId } = req.params;
+        const updatedUtilisateur = await utilisateurService.removePokemonFromEquipe(utilisateurId, pokemonId);
+        res.send(updatedUtilisateur);
+    } catch (error) {
+        res.status(500).send({ error: error.message });
     }
 };
 
