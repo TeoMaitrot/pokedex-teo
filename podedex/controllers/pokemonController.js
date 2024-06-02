@@ -40,3 +40,14 @@ exports.loadPokemonData = async (req, res) => {
         res.status(500).send({ error: 'Une erreur est survenue lors du chargement des données des pokemons' });
     }
 };
+
+exports.loadPokemonDataWithSprite = async (req, res) => {
+    const { startId, endId } = req.body;
+    try {
+        await pokemonService.loadPokemonDataWithSprite(startId, endId);
+        res.send({ message: `Sprites des Pokémon ${startId} à ${endId} chargés avec succès` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: `Erreur lors du chargement des sprites des Pokémon ${startId} à ${endId}` });
+    }
+};
