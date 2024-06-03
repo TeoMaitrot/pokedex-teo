@@ -9,6 +9,7 @@ Cette application permet de gérer les Pokédex et les équipes de différents u
 - Charger les données des Pokémon à partir de l'API PokeAPI
 - Afficher les Pokédex et les équipes des utilisateurs
 - Ajouter et retirer des Pokémon des équipes
+- Changer l'état de capture des pokemons dans le pokedex
 
 ## Prérequis
 
