@@ -23,6 +23,8 @@ Cette application permet de gérer les Pokédex et les équipes de différents u
 - Base de données : MongoDB Atlas
 - API externe : [PokeAPI](https://pokeapi.co/)
 - Postman pour tester mon serveur 
+- GitHub et Git bash pour la gestion du dépot
+- Visual Studio Code comme IDE
 
 ## Installation
 
@@ -91,15 +93,15 @@ Les routes définissent les points d'entrée de l'API et mappent les requêtes H
 
 #### Axes d'amélioration
 1. Côté serveur
-C'était la première fois que j'utilisais Node et MongoDb. Je n'ai pas plus gérer comme je voulais ma récupération des données en SQL vu que j'ai fait du NoSQL. C'était plus rapide mais je maîtrisait moins ce qu'il se passait derrière.
+C'était la première fois que j'utilisais Node et MongoDb. Je n'ai pas plus gérer comme je voulais ma récupération des données en SQL vu que j'ai fait du NoSQL. C'était plus rapide mais je maîtrisais moins ce qu'il se passait derrière.
 J'aurais également du faire des tests unitaires, je n'ai pas trouver le moyen d'en implémenter pour tester au moins mes services.
-Ma gestion d'erreur n'est pas bonne. Je n'ai pas personnaliser mes exceptions ce qui aurait pu être un plus. J'ai jsute une classe d'exception : Error
+Ma gestion d'erreur n'est pas bonne. Je n'ai pas personnaliser mes exceptions ce qui aurait pu être un plus. J'ai juste une classe d'exception : Error. J'ai l'habitude de personnaliser mes classes d'exceptions dans le back-end habituellement
 
 2. Côté client
-Je suis vraiment Novice avec le framework React et je ne l'ai pas dutout utiliser à son plein potentiel. Mon composant gérant l'affichage des pokedexs et composant auraient pu être découper en pleins de petits composant, ce qui aurait été bcp plus simple à gérer. C'est le gros point fort de React que je n'ai pas maitrisé
+Je suis vraiment novice avec le framework React et je ne l'ai pas du tout utiliser à son plein potentiel. Mon composant gérant l'affichage des pokedexs est un anti-pattern (Objet Divin). Il aurait pu être découpé en pleins de petits composants, ce qui aurait été bcp plus simple à gérer. C'est le gros point fort de React que je n'ai pas maitrisé
 
 #### Sources
-Tout d'abord, je tiens à préciser que certaines lignes de codes ont été générées pas ChatGpt. Sinon j'ai utilisé : 
+Tout d'abord, je tiens à préciser que certaines lignes de codes ont été générées pas ChatGpt4.o Sinon j'ai utilisé : 
  - Pour créer ma base de données : **https://www.youtube.com/watch?v=NcN9S0DR1nU&pp=ygUeRGF0YWJhc2UgU2V0dXAgaSBNb25nb0RCIEF0bGFz**
  - Pour créer mon projet back : **https://rahmanfadhil.com/express-rest-api/**
  - Pour connecter ma base de données distante avec le serveur : **https://stackoverflow.com/questions/43394019/how-to-connect-to-mongodb-atlas-using-mongoose**
