@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+# Pokedex Téo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Cette application permet de gérer les Pokédex et les équipes de différents utilisateurs. Elle offre une interface utilisateur simple et intuitive pour créer des utilisateurs, ajouter des Pokédex, charger les données des Pokémon et afficher les informations des Pokédex et des équipes.
 
-## Available Scripts
+## Fonctionnalités
 
-In the project directory, you can run:
+- Créer des utilisateurs
+- Créer des Pokédex et les associer aux utilisateurs
+- Charger les données des Pokémon à partir de l'API PokeAPI
+- Afficher les Pokédex et les équipes des utilisateurs
+- Ajouter et retirer des Pokémon des équipes
 
-### `npm start`
+## Prérequis
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js (version 14 ou supérieure) Assurez-vous d'avoir [Node.js](https://nodejs.org/) et [npm](https://www.npmjs.com/) installés sur votre machine.
+- MongoDB (version 4 ou supérieure) : Utilisez [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) pour la base de données en ligne. En théorie j'ai créé une base de donnée à laquelle vous pouvez accéder donc cette étape n'est pas forcément nécessaire
+- npm (version 6 ou supérieure) : [npm](https://www.npmjs.com/) installés sur votre machine.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies utilisées
 
-### `npm test`
+- Frontend : React, Bootstrap
+- Backend : Node.js, Express, Mongoose
+- Base de données : MongoDB Atlas
+- API externe : [PokeAPI](https://pokeapi.co/)
+- Postman pour tester mon serveur 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+### 1. Clonez le dépôt
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clonez le dépôt GitHub sur votre machine locale en utilisant la commande suivante :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clonez le dépôt GitHub :
+    ```sh
+    git clone https://github.com/TeoMaitrot/pokedex-teo.git
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Installez les dépendances pour le serveur backend :
+    ```sh
+    cd pokedex-teo/podedex
+    npm install
+    ```
 
-### `npm run eject`
+3. Démarrez le serveur backend :
+    ```sh
+    npm start
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Installez les dépendances pour le frontend :
+    ```sh
+    cd ../pokedex-app
+    npm install
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Démarrez l'application frontend :
+    ```sh
+    npm start
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+6. Ouvrez votre navigateur et accédez à `http://localhost:3000`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Architecture du Backend
 
-## Learn More
+Le backend de l'application est construit avec Node.js et Express, et utilise MongoDB pour la base de données. L'architecture suit le modèle MVC (Modèle-Vue-Contrôleur) pour une organisation claire et maintenable du code.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Modèles
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Les modèles définissent la structure des documents dans MongoDB. Ils sont définis à l'aide de Mongoose.
 
-### Code Splitting
+### Contrôleurs
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Les contrôleurs gèrent la logique des requêtes HTTP et les interactions avec les services.
 
-### Analyzing the Bundle Size
+### Services
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Les services contiennent la logique métier de l'application et interagissent avec les managers pour accéder aux données.
 
-### Making a Progressive Web App
+### Managers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Les managers encapsulent les opérations de base de données et sont utilisés par les services pour effectuer des opérations CRUD.
 
-### Advanced Configuration
+### Routes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Les routes définissent les points d'entrée de l'API et mappent les requêtes HTTP aux contrôleurs correspondants.
 
-### Deployment
+### Diagrammes d'architecture
+1. Vous pouvez consulter le diagramme d'architecture **https://diagrams.helpful.dev/d/d:8Q1zGfwO**
+2. Vous pouvez consulter le diagramme de séquence **https://diagrams.helpful.dev/d/d:BqGcnLgi**
+3. Vous pouvez consulter le diagramme de classe **https://diagrams.helpful.dev/d/d:t74l1tLV**
+4. A la racine du projet vous trouverez un fichier text "doc-routes-api.txt" pour voir les routes de l'API (à défaut d'avoir réussi à faire un swagger)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### Axes d'amélioration
+1. Côté serveur
+C'était la première fois que j'utilisais Node et MongoDb. Je n'ai pas plus gérer comme je voulais ma récupération des données en SQL vu que j'ai fait du NoSQL. C'était plus rapide mais je maîtrisait moins ce qu'il se passait derrière.
+J'aurais également du faire des tests unitaires, je n'ai pas trouver le moyen d'en implémenter pour tester au moins mes services.
+Ma gestion d'erreur n'est pas bonne. Je n'ai pas personnaliser mes exceptions ce qui aurait pu être un plus. J'ai jsute une classe d'exception : Error
 
-### `npm run build` fails to minify
+2. Côté client
+Je suis vraiment Novice avec le framework React et je ne l'ai pas dutout utiliser à son plein potentiel. Mon composant gérant l'affichage des pokedexs et composant auraient pu être découper en pleins de petits composant, ce qui aurait été bcp plus simple à gérer. C'est le gros point fort de React que je n'ai pas maitrisé
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### Sources
+Tout d'abord, je tiens à préciser que certaines lignes de codes ont été générées pas ChatGpt. Sinon j'ai utilisé : 
+ - Pour créer ma base de données : **https://www.youtube.com/watch?v=NcN9S0DR1nU&pp=ygUeRGF0YWJhc2UgU2V0dXAgaSBNb25nb0RCIEF0bGFz**
+ - Pour créer mon projet back : **https://rahmanfadhil.com/express-rest-api/**
+ - Pour connecter ma base de données distante avec le serveur : **https://stackoverflow.com/questions/43394019/how-to-connect-to-mongodb-atlas-using-mongoose**
+ - Documentation React : **https://reactjs.org/docs/getting-started.html**
+ - Documentation Bootstrap : **https://getbootstrap.com/docs/5.0/getting-started/introduction/**
+ - Documentation Axios : **https://axios-http.com/docs/intro**
+ - Documentation Mongoose : **https://mongoosejs.com/docs/**
+ - Accès à PokeApi : **https://pokeapi.co/docs/v2**
